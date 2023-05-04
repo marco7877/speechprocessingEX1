@@ -9,7 +9,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library("pacman")
-pacman::p_load("dplyr")
+pacman::p_load("dplyr","tidyr","readxl")
+## we are going to do bootstrap tp the amount of letters of the word. for this I am going to use the boot library
 ```
 
 ```{r}
@@ -96,7 +97,7 @@ stimuli.experiment.filtered <- rbind(stimuli.food.filtered,stimuli.objects.filte
 
 ```{r,echo=F,eval=FALSE}
 #making statistics with the data we have and looking to replace stimuli if needed
-stimuli.experiment.filtered <- read.csv("stimuli_speechExperiment.csv", na.strings = "NA ")
+stimuli.experiment.filtered <-  read_excel("stimuli_speechExperiment.xlsx")
 stimuli.experiment.filtered <- na.omit(stimuli.experiment.filtered)
 #######
 ##
@@ -104,14 +105,21 @@ stimuli.experiment.filtered <- na.omit(stimuli.experiment.filtered)
 ##
 #######
 stimuli.experiment.filtered$category <-as.character(stimuli.experiment.filtered$category) 
+# counting characters 
+stimuli.experiment.filtered$n.char <- nchar(as.character(stimuli.experiment.filtered$stimuli))
+#
 stimuli.objects.filtered <- filter(stimuli.experiment.filtered, category=="objects")
 stimuli.food.filtered <- filter(stimuli.experiment.filtered, category=="food")
 
 kruskal.food <- kruskal.test(stimuli.objects.filtered$corpes_norm_spain, stimuli.objects.filtered$condition)
+kruskal.nfood <- kruskal.test(stimuli.objects.filtered$n.char, stimuli.objects.filtered$condition)
+
 kruskal.objects <- kruskal.test(stimuli.objects.filtered$corpes_norm_spain, stimuli.objects.filtered$condition)
-#kruskal.food <- kruskal.test(stimuli.food.filtered$corpes_norm_spain,stimuli.food.filtered$condition)
+kruskal.nobjects <- kruskal.test(stimuli.objects.filtered$n.char, stimuli.objects.filtered$condition)
+
 stimuli.experiment.filtered$sem.cat <- as.factor(stimuli.experiment.filtered$category)
 wilcox.test(codistrpes_norm_spain~sem.cat, data= stimuli.experiment.filtered)
+###########
 ```
 
 
@@ -124,17 +132,122 @@ boxplot(stimuli.food.filtered$corpes_norm_spain,stimuli.objects.filtered$corpes_
 #deciding how to make non word stimuli. We will do:
 #-Count the amount of characters in our words
 #-determine the mean and the SD of the character length distribution
-#-sample the amount of characters from the afforementioned distribution (bootstraping)
+#-sample the amount of characters from the afforementioned distribution (bootstraping) -> boot library
 #- convert amount of characters to actual n(X) strings
 
 #########################################################
-# counting characters 
-stimuli.experiment.filtered$n.char <- nchar(as.character(stimuli.experiment.filtered$stimuli))
-mean.char <- mean(stimuli.experiment.filtered$n.char)
-sd.char <- sd(stimuli.experiment.filtered$n.char)
-####
-dist <- floor(rnorm(60, mean= mean.char, sd=sd.char))
-stimuli.experiment.filtered$sample <- rnorm()
+set.seed(7877)# for replicating purposes of sampling
+n_targetcontrolwords <- 10 # for run
+word_sample <- as.data.frame( replicate(1000,sample(stimuli.experiment.filtered$n.char,n_targetcontrolwords, replace = T)))
+sample_indexes <-sample(c(1:1000))
+n_sessions <- 1 # amount of desired run sessions
+sample_indexes <- sample_indexes[1:n_sessions]
+
+## note: Sample_indexes is a list of n=>1, we need to transform integers to factors for R to effectively use them to localize columns
+word_sample <- word_sample[,as.factor(sample_indexes)]
+## note: As we may have several columns depending on the runs,
+#        we are using tidr::gather to rbind them. Then we use #        the second column, because the output from gather is:
+#        column name, value
+word_sample <- tidyr::gather(as.data.frame(word_sample))[2]
+names(word_sample) <- c("num") #we are renaming our remaining
+#### Creating stimuli 
+word_sample$wordControl <- c("")#empty string variable
+#repeat x required n times 
+for (i in 1:length(word_sample[,1])){word_sample 
+word_sample$wordControl[i] <- strrep("x",word_sample$num[i])}
+#
+
+## load sentences
+SentencesSubject <- read_excel("SentencesSubject.xlsx")
+# s1
+SentencesSubject$nfirst <- nchar(as.character(SentencesSubject$S1))
+# s2
+## we already have our control "targets"
+# s3
+SentencesSubject$nthird <- nchar(as.character(SentencesSubject$S3))
+# s4
+SentencesSubject$nfourth <- nchar(as.character(SentencesSubject$S4))
+# s5
+SentencesSubject$nfifth <- nchar(as.character(SentencesSubject$S5))
+# s6
+SentencesSubject$nsixth <- nchar(as.character(SentencesSubject$S6))
+## make replaements from sample 
+n_targetcontrolsentences <- 10 # for run
+# s1
+ns1_sample <- as.data.frame( replicate(1000,sample(SentencesSubject$nfirst,n_targetcontrolsentences, replace = T)))
+# s2
+## we done this in previous lines (word condition)
+# s3
+ns3_sample <- as.data.frame( replicate(1000,sample(SentencesSubject$nthird,n_targetcontrolsentences, replace = T)))
+# s4
+ns4_sample <- as.data.frame( replicate(1000,sample(SentencesSubject$nfourth,n_targetcontrolsentences, replace = T)))
+# s5
+ns5_sample <- as.data.frame( replicate(1000,sample(SentencesSubject$nfifth,n_targetcontrolsentences, replace = T)))
+# s6
+ns6_sample <- as.data.frame( replicate(1000,sample(SentencesSubject$nsixth,n_targetcontrolsentences, replace = T)))
+## we are using the same indexes as in the word control condition
+
+############## create words
+## note: Sample_indexes is a list of n=>1, we need to transform integers to factors for R to effectively use them to localize columns
+###
+# ns1
+ns1_sample <- ns1_sample[,as.factor(sample_indexes)]
+ns1_sample <- tidyr::gather(as.data.frame(ns1_sample))[2]
+ns1_sample$wordControl <- c("")#empty string variable
+#repeat x required n times 
+for (i in 1:length(ns1_sample[,1])){ns1_sample$wordControl[i] <- strrep("x",ns1_sample$value[i])}
+###
+# ns3
+ns3_sample <- ns3_sample[,as.factor(sample_indexes)]
+ns3_sample <- tidyr::gather(as.data.frame(ns3_sample))[2]
+ns3_sample$wordControl <- c("")#empty string variable
+#repeat x required n times 
+for (i in 1:length(ns3_sample[,1])){ns3_sample$wordControl[i] <- strrep("x",ns3_sample$value[i])}
+###
+# ns4
+ns4_sample <- ns4_sample[,as.factor(sample_indexes)]
+ns4_sample <- tidyr::gather(as.data.frame(ns4_sample))[2]
+ns4_sample$wordControl <- c("")#empty string variable
+#repeat x required n times 
+for (i in 1:length(ns4_sample[,1])){ns4_sample$wordControl[i] <- strrep("x",ns4_sample$value[i])}
+###
+# ns5
+ns5_sample <- ns5_sample[,as.factor(sample_indexes)]
+ns5_sample <- tidyr::gather(as.data.frame(ns5_sample))[2]
+ns5_sample$wordControl <- c("")#empty string variable
+#repeat x required n times 
+for (i in 1:length(ns5_sample[,1])){ns5_sample$wordControl[i] <- strrep("x",ns5_sample$value[i])}
+###
+# ns6
+ns6_sample <- ns6_sample[,as.factor(sample_indexes)]
+ns6_sample <- tidyr::gather(as.data.frame(ns6_sample))[2]
+ns6_sample$wordControl <- c("")#empty string variable
+#repeat x required n times 
+for (i in 1:length(ns6_sample[,1])){ns6_sample$wordControl[i] <- strrep("x",ns6_sample$value[i])}
 ```
+
+
+```{r}
+## We are going to use this chunk of code to merge all the data we already have and put it into a general csv
+# --words
+control_new <- data.frame(word_sample$wordControl)
+names(control_new) <- c("stimuli")
+control_new$category <- c("control")
+control_new$condition <- c("control")
+control_new$sound <- c(NaN)
+control_new$corpes_norm_spain <- c(NaN)
+control_new$outlier <- c("FALSE")
+control_new$element <- c("word_control")
+control_new$mean <- c(NaN)
+control_new$median <- c(NaN)
+control_new$n.char <- word_sample$num1
+#sentences
+sentences <- data.frame(ns1_sample$wordControl,word_sample$wordControl,ns3_sample$wordControl,ns4_sample$wordControl,ns5_sample$wordControl,ns6_sample$wordControl)
+#
+SentencesSubject <- SentencesSubject[,as.factor(c(
+  "stimuli","Number","S1","S2","S3","S4","S5","S6"
+))]
+```
+
 
 
