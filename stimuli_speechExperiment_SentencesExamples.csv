@@ -1,0 +1,33 @@
+stimuli,category,condition,sound,Word position,Word function,number,Example
+mantequilla,food,nasal,m,2,Subject,1,La mantequilla da sabor al plato
+mantequilla,food,nasal,m,2,Subject,2,La mantequilla de man? es deliciosa
+mantequilla,food,nasal,m,2,Subject,3,La mantequilla de ajo es olorosa
+mantequilla,food,nasal,m,2,Subject,4,La mantequilla es buena para cocinar
+manzana,food,nasal,m,2,Subject,1,La manzana cay? del ?rbol madura
+manzana,food,nasal,m,2,Subject,2,La manzana verde est? muy ?cida
+manzana,food,nasal,m,2,Subject,3,La manzana fresca es muy jugosa
+manzana,food,nasal,m,2,Subject,4,La manzana caramelizada es muy sabrosa
+manguera,objects,nasal,m,2,Subject,1,La manguera conecta con el grifo
+manguera,objects,nasal,m,2,Subject,2,La manguera se enrolla con dificultad
+manguera,objects,nasal,m,2,Subject,3,La manguera se cort? por accidente
+manguera,objects,nasal,m,2,Subject,4,La manguera necesita un conector nuevo
+f?sil,objects,fricative,f,2,Subject,1,El f?sil dispar? con gran estruendo
+f?sil,objects,fricative,f,2,Subject,2,Es f?sil estaba oxidado y viejo
+f?sil,objects,fricative,f,2,Subject,3,El f?sil del soldado era moderno
+f?sil,objects,fricative,f,2,Subject,4,El f?sil del cazador estaba cargado
+mantequilla,food,nasal,m,4,Direct object,1,Lentamente mezcla la mantequilla con az?car
+mantequilla,food,nasal,m,4,Direct object,2,Alba bate la mantequilla con huevos
+mantequilla,food,nasal,m,4,Direct object,3,Jos? unta la mantequilla con cuchillo
+mantequilla,food,nasal,m,4,Direct object,4,Isabel corta la mantequilla en cubos
+manzana,food,nasal,m,4,Direct object,1,David cogi? una manzana del ?rbol
+manzana,food,nasal,m,4,Direct object,2,Antonio cocina las manzanas con canela
+manzana,food,nasal,m,4,Direct object,3,Laura come una manzana muy jugosa
+manzana,food,nasal,m,4,Direct object,4,Le regal? una manzana al maestro
+manguera,objects,nasal,m,4,Direct object,1,Aqu? compr? mi manguera de jard?n
+manguera,objects,nasal,m,4,Direct object,2,Manolo enred? la manguera para jugar
+manguera,objects,nasal,m,4,Direct object,3,Luc?a us? la manguera para regar
+manguera,objects,nasal,m,4,Direct object,4,Luis conecta la manguera al grifo
+f?sil,objects,fricative,f,4,Direct object,1,Juan adquiri? un fusil muy antiguo
+f?sil,objects,fricative,f,4,Direct object,2,Anoche confiscaron el fusil del sospechoso
+f?sil,objects,fricative,f,4,Direct object,3,Carmen limpi? su fusil de precisi?n
+f?sil,objects,fricative,f,4,Direct object,4,Carlos rob? un fusil de comisiar?a

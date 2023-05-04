@@ -1,0 +1,61 @@
+stimuli,category,condition,sound,corpes_norm_spain,outlier,element,mean,median,Sentence 1,Sentence 2,Sentence 3,Sentence 4
+bacalao,food,plosive,b,7.55,FALSE,word,6.45605263157895,4.855,El bacalao est? marinado en lim?n,El bacalao se cocina al vapor,El bacalao con patatas es delicioso,El bacalao est? en oferta hoy
+balde,objects,plosive,b,8.23,FALSE,word,7.26432432432432,6.89,El balde est? lleno de hielo,El balde tiene una tapa rota,El balde se desbord? con lluvia,El balde sirve para regar plantas
+bizcocho,food,plosive,b,6.42,FALSE,word,6.45605263157895,4.855,El bizcocho se desmoron? en pedazos,El bizcocho estaba suave y esponjoso,El bizcocho lleva frutas y nueces,El bizcocho de lim?n me encanta
+bocadillo,food,plosive,b,6.86,FALSE,word,6.45605263157895,4.855,El bocadillo de queso sabe bien,El bocadillo de tortilla est? delicioso,El bocadillo de at?n tiene mayonesa,El bocadillo de chorizo estaba picante
+boina,objects,plosive,b,2.72,FALSE,word,7.26432432432432,6.89,La boina de lana es c?moda,La boina vasca es muy reconocida,La boina francesa es muy elegante,La boina negra le va bien
+bol?gafo,objects,plosive,b,8.52,FALSE,word,7.26432432432432,6.89,El bol?gafo se qued? sin tinta,Este bol?gafo escribe muy suave,El bol?gafo negro est? agotado,El bol?gafo azul es mi preferido
+bombilla,objects,plosive,b,4.77,FALSE,word,7.26432432432432,6.89,La bombilla est? parpadeando de nuevo,La bombilla LED consume menos energ?a,La bombilla se quem? por sobretensi?n,La bombilla ilumina toda la habitaci?n
+bomb?n,food,plosive,b,4.48,FALSE,word,6.45605263157895,4.855,El bomb?n estaba lleno de crema,El bomb?n estaba envuelto en papel,Este bomb?n est? relleno de licor,El bomb?n es demasiado dulce
+fabada,food,fricative,f,1.02,FALSE,word,6.45605263157895,4.855,La fabada es un plato asturiano,La fabada es un plato tradicional,La fabada es perfecta en invierno,La fabada lleva chorizo y morcilla
+fajitas,food,fricative,f,0.16,FALSE,word,6.45605263157895,4.855,Las fajitas de res est?n listas,Las fajitas vegetarianas son muy ricas,Las fajitas al pastor son exquisitas,Las fajitas de camarones son saludables
+farol,objects,fricative,f,2.23,FALSE,word,7.26432432432432,6.89,El farol ilumina la calle oscura,El farol de papel se rompi?,El farol del techo se tambaleaba,El farol de gas se apag?
+ficha,objects,fricative,f,13.79,FALSE,word,7.26432432432432,6.89,La ficha de ajedrez se movi?,La ficha del domin? es doble,La ficha describe el producto,La ficha de respuesta est? perdida
+fideos,food,fricative,f,7.61,FALSE,word,6.45605263157895,4.855,Los fideos son mi comida favorita,Los fideos con salsa son deliciosos,Los fideos instant?neos son muy pr?cticos,Los fideos de trigo son vers?tiles
+filete,food,fricative,f,2.8,FALSE,word,6.45605263157895,4.855,El filete estaba jugoso y tierno,El filete es de ternera argentina,El filete estaba acompa?ado de papas,El filete est? marinado en vino
+filtro,objects,fricative,f,7.88,FALSE,word,7.26432432432432,6.89,El filtro del cigarrillo est? quemado,El filtro de aceite est? sucio,El filtro de Instagram hace milagros,El filtro solar te protege mucho
+fond?e,food,fricative,f,0.26,FALSE,word,6.45605263157895,4.855,El fond?e de queso est? delicioso,El fond?e de chocolate es irresistible,El fond?e de carne es popular,La fond?e de frutas es exquisita
+funda,objects,fricative,f,7.64,FALSE,word,7.26432432432432,6.89,La funda del coj?n est? rota,La funda del libro est? rota,La funda del sof? es lavable,La funda del colch?n se desgast?
+f?sil,objects,fricative,f,4.13,FALSE,word,7.26432432432432,6.89,El f?sil dispar? con gran estruendo,Es f?sil estaba oxidado y viejo,El f?sil del soldado era moderno,El f?sil del cazador estaba cargado
+mango,food,nasal,m,5.55,FALSE,word,6.45605263157895,4.855,El mango maduro es m?s dulce,El mango es una fruta nutritiva,El mango tiene un aroma estupendo,El mango es una fruta cara
+manguera,objects,nasal,m,2.26,FALSE,word,7.26432432432432,6.89,La manguera conecta con el grifo,La manguera se enrolla con dificultad,La manguera se cort? por accidente,La manguera necesita un conector nuevo
+mantequilla,food,nasal,m,15.52,FALSE,word,6.45605263157895,4.855,La mantequilla da sabor al plato,La mantequilla de man? es deliciosa,La mantequilla de ajo es olorosa,La mantequilla es buena para cocinar
+manzana,food,nasal,m,15.76,FALSE,word,6.45605263157895,4.855,La manzana cay? del ?rbol madura,La manzana verde est? muy ?cida,La manzana fresca es muy jugosa,La manzana caramelizada es muy sabrosa
+martillo,objects,nasal,m,4.3,FALSE,word,7.26432432432432,6.89,El martillo est? sobre la mesa,El martillo me golpe? el dedo,El martillo neum?tico hace mucho ruido,El martillo hizo un sonido met?lico
+m?scara,objects,nasal,m,10.09,FALSE,word,7.26432432432432,6.89,La m?scara del carnaval era colorida,La m?scara de gas es inc?moda,La m?scara de seda es elegante,La m?scara de Halloween es tenebrosa
+mazap?n,food,nasal,m,0.66,FALSE,word,6.45605263157895,4.855,El mazap?n es t?pico en Navidad,El mazap?n es un dulce popular,El mazap?n casero te qued? delicioso,El mazap?n es suave y dulce
+mel?n,food,nasal,m,3.09,FALSE,word,6.45605263157895,4.855,El mel?n es una fruta refrescante,El mel?n verde est? todav?a inmaduro,El mel?n es mi fruta favorita,El mel?n es rico en vitaminas
+monitor,objects,nasal,m,6.89,FALSE,word,7.26432432432432,6.89,El monitor del ordenador est? apagado,El monitor muestra im?genes muy borrosas,El monitor viejo se ha estropeado,El monitor tiene una pantalla grande
+mu?eco,objects,nasal,m,5.74,FALSE,word,7.26432432432432,6.89,El mu?eco de nieve se derriti?,El mu?eco de trapo estaba roto,El mu?eco de paja se quem?,El mu?eco de porcelana es fr?gil
+nachos,food,nasal,n,0.4,FALSE,word,6.45605263157895,4.855,Los nachos con guacamole son deliciosos,Los nachos son un excelente aperitivo,lLos nachos con queso son irresistibles,Los nachos picantes son muy populares
+naipes,objects,nasal,n,2.13,FALSE,word,7.26432432432432,6.89,Los naipes tienen un dise?? particular,Jugar naipes es mi pasatiempo favorito,Los naipes espa?oles tienen dise?os hermosos,Sus naipes estaban ya muy gastados
+naranja,food,nasal,n,23.56,FALSE,word,6.45605263157895,4.855,La naranja es una fruta c?trica,La naranja tiene mucha vitamina C,La naranja tiene un perfume agradable,La naranja en mermelada es deliciosa
+nata,food,nasal,n,11.56,FALSE,word,6.45605263157895,4.855,La nata va perfecto con caf?,La nata es ingrediente de reposter?a,La nata montada es un cl?sico,La nata l?quida me gusta mucho
+navaja,objects,nasal,n,7.62,FALSE,word,7.26432432432432,6.89,La navaja corta el papel f?cilmente,La navaja de mi abuelo mola,La navaja suiza tiene muchas funciones,La navaja de afeitar est? desgastada
+neceser,objects,nasal,n,0.92,FALSE,word,7.26432432432432,6.89,El neceser de viaje est? completo,El neceser de cuero es elegante,El neceser de pl?stico se rompi?,Este neceser es para mis cosm?ticos
+nectarina,food,nasal,n,0.19,FALSE,word,6.45605263157895,4.855,La nectarina tiene un sabor agridulce,La nectarina es variante del melocot?n,La nectarina es dif?cil de pelar,La nectarina es deliciosa en ensalada
+nevera,objects,nasal,n,14.89,FALSE,word,7.26432432432432,6.89,La nevera est? vac?a de nuevo,La nevera hace demasiado ruido,La nevera necesita ser descongelada pronto,La nevera no tiene suficiente espacio
+nudo,objects,nasal,n,10.25,FALSE,word,7.26432432432432,6.89,El nudo del vestido se afloj?,El nudo ata fuertemente el barco,El nudo marinero es muy ?til,El nudo en la garganta persist?a
+nuez,food,nasal,n,4.24,FALSE,word,6.45605263157895,4.855,La nuez es el ingrediente secreto,La nuez aporta textura al guiso,La nuez moscada se troza f?cilmente,La nuez de Brasil es ex?tica
+paella,food,plosive,p,5.23,FALSE,word,6.45605263157895,4.855,La paella es un plato espa?ol,La paella se sirve en cazuelas,La paella lleva muchos ingredientes frescos,La paella es popular en Valencia
+pala,objects,plosive,p,3.96,FALSE,word,7.26432432432432,6.89,La pala es esencial en jardiner?a,La pala sirve para cavar agujeros,La pala se usa en construcci?n,La pala se parti? en dos
+paletilla,food,plosive,p,0.46,FALSE,word,6.45605263157895,4.855,La paletilla de jam?n estaba deliciosa,La paletilla es un corte jugoso,La paletilla es un buen aperitivo,La paletilla es perfecta para guisos
+palillo,objects,plosive,p,1.42,FALSE,word,7.26432432432432,6.89,El palillo de dientes es ?til,El palillo chino es muy delgado,El palillo es de madera fr?gil,El palillo del tambor se rompi?
+pa?uelo,objects,plosive,p,16.14,FALSE,word,7.26432432432432,6.89,El pa?uelo blanco ondeaba muy lentamente,El pa?uelo llevaba un estampado chulo,El pa?uelo de seda es suave,El pa?uelo de seda era car?simo
+paraguas,objects,plosive,p,11.02,FALSE,word,7.26432432432432,6.89,El paraguas se oxid? y estrope?,El paraguas lo olvid? en casa,El paraguas es de color amarillo,El paraguas lo compr? en rebajas
+pasas,food,plosive,p,0.96,FALSE,word,6.45605263157895,4.855,Las pasas est?n en el bol,Las pasas son frutas bastante deshidratadas,Las pasas a?aden un sabor dulce,Las pasas son un aperitivo saludable
+pavo,food,plosive,p,5.32,FALSE,word,6.45605263157895,4.855,El pavo est? en el horno,El pavo se sirve con ar?ndanos,El pavo estaba relleno de hierbas,El pavo ten?a una piel crujiente
+pincel,objects,plosive,p,3.47,FALSE,word,7.26432432432432,6.89,El pincel estaba mojado de pintura,El pincle fino sirve para detalles,El pincel de cerdas duras raspa,El pincel ancho cubre m?s ?rea
+pollo,food,plosive,p,18.7,FALSE,word,6.45605263157895,4.855,El pollo frito estaba muy sabroso,El pollo en salsa es exquisito,El pollo frito es mi debilidad,El pollo al curry sabe bien
+sable,objects,fricative,s,1.91,FALSE,word,7.26432432432432,6.89,El sable l?ser es muy futurista,El sable del general estaba mellado ,El sable es un arma curva,El sable es un arma antigua
+salchicha,food,fricative,s,2.46,FALSE,word,6.45605263157895,4.855,La salchicha se me quem? mucho,La salchicha de pavo es mejor,La salchicha que com? era picante,La salchicha italiana tiene mucho sabor
+salm?n,food,fricative,s,5.53,FALSE,word,6.45605263157895,4.855,El salm?n salvaje es m?s caro,El salm?n fresco es delicioso,El salm?n ahumado es mi favoritao,El salm?n se puede comer crudo
+sand?a,food,fricative,s,2.27,FALSE,word,6.45605263157895,4.855,La sand?a est? cortada en cubos,La sand?a es una fruta grande,La sand?a tiene muchas semillas negras,La sand?a es una fruta refrescante
+sart?n,objects,fricative,s,13.24,FALSE,word,7.26432432432432,6.89,La sart?n se ha rayado mucho,La sart?n de hierro es resistente,La sarten est? todav?a muy caliente,La sart?n se cay? al suelo
+sello,objects,fricative,s,13.97,FALSE,word,7.26432432432432,6.89,El sello estaba en el sobre,El sello del notario es oficial,El sello que encontr? es valioso,El sello del frasco est? roto
+setas,food,fricative,s,6.85,FALSE,word,6.45605263157895,4.855,Las setas portobello son muy carnosas,Las setas silvestres pueden ser venenosas,Las setas me causan mucha alergia,Las setas shiitake son de Asia
+sobre,objects,fricative,s,14.09,FALSE,word,7.26432432432432,6.89,El sobre ten?a una mancha sospechosa,El sobre ten?a mi direcci?n escrita,El sobre estaba muy mal sellado,El sobre era grande y pesado
+soga,objects,fricative,s,6.52,FALSE,word,7.26432432432432,6.89,La soga se rompi? al instante,La soga ten?a un nudo dif?cil,La soga est? hecha de c??amo,La soga era demasiado corta
+sopa,food,fricative,s,13.09,FALSE,word,6.45605263157895,4.855,La sopa de verduras es deliciosa,La sopa de cebollas es exquisita,La sopa de pollo es reconfortante,La sope de tomate es nutritiva
+vinagre,food,plosive,b,11.53,FALSE,word,6.45605263157895,4.855,El vinagre tiene un fuerte olor,El vinagre ayuda a conservar alimentos,El vinagre de manzana es popular,El vinagre bals?mico es muy sabroso
+viol?n,objects,plosive,b,7.35,FALSE,word,7.26432432432432,6.89,El viol?n del concierto era extraordinario,El viol?n tiene un sonido nost?lgico,El viol?n tiene un sonido celestial,El viol?n tiene cuatro cuerdas afinables

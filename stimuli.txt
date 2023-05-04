@@ -1,0 +1,21 @@
+pedientes
+pantaón
+
+
+un fular clothing
+fabada food
+sudadera clothing 
+fidegua// paella con fideos//
+
+
+use gpt for categorías
+sushi food en sugar de soda // sopa // sorbete//
+
+mantilla \\ clothing\\ mantón, mejor mantón \\ muñequera en lugar de moño. Manopla, pueque. mocasín 
+
+comida n\\ nachos ropa // nautico
+
+objeto\\ nevera 
+
+
+vale, hacer el workflow:: basado en los json. 
