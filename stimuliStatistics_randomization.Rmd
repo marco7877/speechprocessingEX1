@@ -1,0 +1,140 @@
+---
+title: "StimuliStatistics"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("pacman")
+pacman::p_load("dplyr")
+```
+
+```{r}
+stimuli.all <- read.csv2("StimuliProposal_SpeechExperiment.csv",sep = ",")# load file
+stimuli.all$sound <- as.character(stimuli.all$sound)
+stimuli <- na.omit(as.data.frame(stimuli.all)) # delete NAs 
+stimuli <- stimuli %>% dplyr::select(stimuli, category, condition, sound, corpes_norm_spain)# select variables of interest
+stimuli$stimuli <- as.character(stimuli$stimuli) #change variables detected automatically as factor, to character
+stimuli$category <- as.character(stimuli$category) #change variables detected automatically as factor, to character
+stimuli.objects <- filter(stimuli, category=="objects")
+stimuli.food <- filter(stimuli, category=="food")
+stimuli.experiment <- rbind(stimuli.objects,stimuli.food)# this are the stimui we are going to use
+#making a factor variable to make analysis easier
+stimuli.experiment$sem.cat <- as.factor(stimuli.experiment$category)
+```
+
+```{r}
+#plotting histogram and bosplot of distribution of general normalized frecuency
+# making plot objects
+general.hist <- hist(stimuli.experiment$corpes_norm_spain)
+general.boxplot <- boxplot(stimuli.experiment$corpes_norm_spain)
+####### actually plotting
+plot(general.hist)
+#general.boxplot
+```
+```{r}
+#plotting individual semantic categories
+hist.food <- hist(stimuli.food$corpes_norm_spain)
+hist.object <- hist(stimuli.objects$corpes_norm_spain)
+# side by side boxplots
+joint.boxplot <- boxplot(stimuli.food$corpes_norm_spain, stimuli.objects$corpes_norm_spain)
+# checking for normality
+qqnorm(stimuli.experiment$corpes_norm_spain)
+qqline(stimuli.experiment$corpes_norm_spain)
+```
+
+```{r}
+#taking outliers out . Fromo graphical inspection it looks that for food the treshold > 60 and for objects the treshold > 40
+## food
+stimuli.food$outlier<-as.character(c(stimuli.food$corpes_norm_spain > 25))
+stimuli.food.filtered <- dplyr::filter(stimuli.food, outlier=="FALSE")
+mean(stimuli.food.filtered$corpes_norm_spain)
+median(stimuli.food.filtered$corpes_norm_spain)
+## objects
+stimuli.objects$outlier <- as.character(c(stimuli.objects$corpes_norm_spain > 25))
+stimuli.objects.filtered <- dplyr::filter(stimuli.objects, outlier == "FALSE")
+mean(stimuli.objects.filtered$corpes_norm_spain)
+median(stimuli.objects.filtered$corpes_norm_spain)
+####### replotting boxplots
+joint.boxplot.filtered <- boxplot(stimuli.food.filtered$corpes_norm_spain, stimuli.objects.filtered$corpes_norm_spain)
+####### replotting qqplots
+qqnorm(stimuli.food.filtered$corpes_norm_spain)
+qqline(stimuli.food.filtered$corpes_norm_spain)
+```
+
+```{r}
+# making contingency tables to see how many word we are going to replace
+#creating counting variable first
+#-- food
+stimuli.food.filtered$element <- c("word")
+food.contingency <- as.data.frame(
+  table(
+    stimuli.food.filtered$element, stimuli.food.filtered$sound))
+names(food.contingency) <- c("stimuli.Level","sound","Freq")
+stimuli.food.filtered$category <- as.factor(stimuli.food.filtered$category)
+stimuli.food.filtered$mean <- mean(stimuli.food.filtered$corpes_norm_spain)
+stimuli.food.filtered$median <- median(stimuli.food.filtered$corpes_norm_spain)
+#-- object
+stimuli.objects.filtered$element <- c("word")
+object.contingency <- as.data.frame(
+  table(
+    stimuli.objects.filtered$element,
+    stimuli.objects.filtered$sound))
+names(object.contingency) <- c("stimuli.Level","sound","Freq")
+stimuli.objects.filtered$category <- as.factor(stimuli.objects.filtered$category)
+stimuli.objects.filtered$mean <- mean(stimuli.objects.filtered$corpes_norm_spain)
+stimuli.objects.filtered$median <- median(stimuli.objects.filtered$corpes_norm_spain)
+### merging filtered stimuli 
+stimuli.experiment.filtered <- rbind(stimuli.food.filtered,stimuli.objects.filtered)
+#stimuli.experiment.filtered$sem.cat <- as.factor(stimuli.experiment.filtered$category)
+### saving data as .csv to manually eliminate stimuli 
+#write.csv(stimuli.experiment.filtered,"stimuli_speechExperiment.csv", sep=",", row.names = F)
+```
+
+```{r,echo=F,eval=FALSE}
+#making statistics with the data we have and looking to replace stimuli if needed
+stimuli.experiment.filtered <- read.csv("stimuli_speechExperiment.csv", na.strings = "NA ")
+stimuli.experiment.filtered <- na.omit(stimuli.experiment.filtered)
+#######
+##
+## We are reloading stimuli.objects.filtered and stimul.food.filtered
+##
+#######
+stimuli.experiment.filtered$category <-as.character(stimuli.experiment.filtered$category) 
+stimuli.objects.filtered <- filter(stimuli.experiment.filtered, category=="objects")
+stimuli.food.filtered <- filter(stimuli.experiment.filtered, category=="food")
+
+kruskal.food <- kruskal.test(stimuli.objects.filtered$corpes_norm_spain, stimuli.objects.filtered$condition)
+kruskal.objects <- kruskal.test(stimuli.objects.filtered$corpes_norm_spain, stimuli.objects.filtered$condition)
+#kruskal.food <- kruskal.test(stimuli.food.filtered$corpes_norm_spain,stimuli.food.filtered$condition)
+stimuli.experiment.filtered$sem.cat <- as.factor(stimuli.experiment.filtered$category)
+wilcox.test(codistrpes_norm_spain~sem.cat, data= stimuli.experiment.filtered)
+```
+
+
+
+```{r}
+boxplot(stimuli.food.filtered$corpes_norm_spain,stimuli.objects.filtered$corpes_norm_spain, xlab="semantic category", ylab="word frecuency (corpes)", names=c("food","objects"))
+```
+
+```{r}
+#deciding how to make non word stimuli. We will do:
+#-Count the amount of characters in our words
+#-determine the mean and the SD of the character length distribution
+#-sample the amount of characters from the afforementioned distribution (bootstraping)
+#- convert amount of characters to actual n(X) strings
+
+#########################################################
+# counting characters 
+stimuli.experiment.filtered$n.char <- nchar(as.character(stimuli.experiment.filtered$stimuli))
+mean.char <- mean(stimuli.experiment.filtered$n.char)
+sd.char <- sd(stimuli.experiment.filtered$n.char)
+####
+dist <- floor(rnorm(60, mean= mean.char, sd=sd.char))
+stimuli.experiment.filtered$sample <- rnorm()
+```
+
+
