@@ -95,7 +95,7 @@ stimuli.experiment.filtered <- rbind(stimuli.food.filtered,stimuli.objects.filte
 #write.csv(stimuli.experiment.filtered,"stimuli_speechExperiment.csv", sep=",", row.names = F)
 ```
 
-```{r,echo=F,eval=FALSE}
+```{r,}
 #making statistics with the data we have and looking to replace stimuli if needed
 stimuli.experiment.filtered <-  read_excel("stimuli_speechExperiment.xlsx")
 stimuli.experiment.filtered <- na.omit(stimuli.experiment.filtered)
@@ -118,7 +118,8 @@ kruskal.objects <- kruskal.test(stimuli.objects.filtered$corpes_norm_spain, stim
 kruskal.nobjects <- kruskal.test(stimuli.objects.filtered$n.char, stimuli.objects.filtered$condition)
 
 stimuli.experiment.filtered$sem.cat <- as.factor(stimuli.experiment.filtered$category)
-wilcox.test(codistrpes_norm_spain~sem.cat, data= stimuli.experiment.filtered)
+
+#wilcox.test(codistrpes_norm_spain~sem.cat, data= stimuli.experiment.filtered)
 ###########
 ```
 
@@ -196,6 +197,7 @@ ns1_sample <- tidyr::gather(as.data.frame(ns1_sample))[2]
 ns1_sample$wordControl <- c("")#empty string variable
 #repeat x required n times 
 for (i in 1:length(ns1_sample[,1])){ns1_sample$wordControl[i] <- strrep("x",ns1_sample$value[i])}
+
 ###
 # ns3
 ns3_sample <- ns3_sample[,as.factor(sample_indexes)]
@@ -229,6 +231,13 @@ for (i in 1:length(ns6_sample[,1])){ns6_sample$wordControl[i] <- strrep("x",ns6_
 
 ```{r}
 ## We are going to use this chunk of code to merge all the data we already have and put it into a general csv
+namesdf <- names(stimuli.experiment.filtered)
+namesdf <- namesdf[1:10]
+stimuli.experiment.filtered <- stimuli.experiment.filtered[,as.factor(namesdf)]
+as
+namessentences <- names(SentencesSubject)
+namessentences <- namessentences[1:8]
+SentencesSubject <- SentencesSubject[,as.factor(namessentences)]
 # --words
 control_new <- data.frame(word_sample$wordControl)
 names(control_new) <- c("stimuli")
@@ -240,13 +249,17 @@ control_new$outlier <- c("FALSE")
 control_new$element <- c("word_control")
 control_new$mean <- c(NaN)
 control_new$median <- c(NaN)
-control_new$n.char <- word_sample$num1
+control_new$n.char <- word_sample$num
 #sentences
-sentences <- data.frame(ns1_sample$wordControl,word_sample$wordControl,ns3_sample$wordControl,ns4_sample$wordControl,ns5_sample$wordControl,ns6_sample$wordControl)
+sentences <- data.frame(word_sample$wordControl,c(6),ns1_sample$wordControl,word_sample$wordControl,ns3_sample$wordControl,ns4_sample$wordControl,ns5_sample$wordControl,ns6_sample$wordControl)
 #
-SentencesSubject <- SentencesSubject[,as.factor(c(
-  "stimuli","Number","S1","S2","S3","S4","S5","S6"
-))]
+stimuli.experiment.filtered <- rbind(stimuli.experiment.filtered,control_new)
+#
+names(sentences) <- names(SentencesSubject)
+SentencesSubject <- rbind(SentencesSubject,sentences)
+#### merging sentences with word stimuli by stimuli
+test <- merge(stimuli.experiment.filtered,SentencesSubject,by="stimuli")
+#write.csv(test,"completeStimuli_Exp1.csv",fileEncoding = "UTF-8")
 ```
 
 
