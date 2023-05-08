@@ -1,0 +1,32 @@
+---
+title: "stimuli_presentation"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#pacman::p_load(tab)
+```
+
+```{r}
+stimuliOcurrence <- 10
+file_lists <- read.csv2("Speech_wordLevel 7 4242023-1637 _BestList.csv", header = F, sep = ",")
+file_n <- read.csv2("Speech_wordLevel 7 4242023-1637 _nEvents.csv", header = F, sep = ",")
+names(file_n) <- as.factor(c(1:length(file_n)))
+over <- file_n>10
+under <- file_n<10
+n_over <- (sum(file_n[,over])%%stimuliOcurrence)
+over_indexes <- (as.numeric(names(file_n)))[over]#logical of
+# n elements that met condition >stimuliOcurrence
+over_indexes <- sample(which(ifelse(file_lists[,1] %in% over_indexes,T,F)),as.numeric(n_over))# indentify indexes, make a sample of the aforementioned and extract a sample of them of equal length as the amount of elements that are more than expected
+## DISCLAIMER-> this only works because We have an overload of ##      0s, if not, it will fail. Esto debería de ser otro for
+
+#extracting negative difference
+x <- data.frame(matrix(ncol=2,nrow=sum(under)))
+x[,1] <- names(file_n)[under]
+x[,2] <- (file_n-10)[under]*-1
+replace_elements <- as.numeric(rep(x[,1],times=x[,2]))#making list of elements to change
+file_lists[over_indexes,] <- replace_elements#replacing elements that lack n representations in file_list
+
+```
+
