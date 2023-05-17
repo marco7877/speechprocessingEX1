@@ -258,7 +258,7 @@ stimuli.experiment.filtered <- rbind(stimuli.experiment.filtered,control_new)
 names(sentences) <- names(SentencesSubject)
 SentencesSubject <- rbind(SentencesSubject,sentences)
 #### merging sentences with word stimuli by stimuli
-test <- merge(stimuli.experiment.filtered,SentencesSubject,by="stimuli")
+#test <- merge(stimuli.experiment.filtered,SentencesSubject,by="stimuli")
 #write.csv(test,"completeStimuli_Exp1.csv",fileEncoding = "UTF-8")
 ```
 
