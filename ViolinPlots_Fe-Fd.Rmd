@@ -1,0 +1,157 @@
+---
+title: "stimuli"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# b
+food_b <- c("vinagre", "verdura","bizcocho","boquerones")
+food_b <- as.data.frame(food_b)
+food_b["category"] <- c("food")
+food_b["condition"] <- c("plosive")
+food_b["sound"] <- c("b")
+names(food_b) <- c("stimuli","category","condition","sound")
+###
+clothing_b <- c("bata","boina","vaquero","bufanda")
+clothing_b <- as.data.frame(clothing_b)
+clothing_b["category"] <- c("clothing")
+clothing_b["condition"] <- c("plosive")
+clothing_b["sound"] <- c("b")
+names(clothing_b) <- c("stimuli","category","condition","sound")
+###
+toys_b <- c("bolígrafo","violín","violín","vaso")
+toys_b <- as.data.frame(toys_b)
+toys_b["category"] <- c("toys")
+toys_b["condition"] <- c("plosive")
+toys_b["sound"] <- c("b")
+names(toys_b) <- c("stimuli","category","condition","sound")
+# k
+food_k <- c("castañas","queso","coliflor","canapés")
+food_k <- as.data.frame(food_k)
+food_k["category"] <- c("food")
+food_k["condition"] <- c("plosive")
+food_k["sound"] <- c("k")
+names(food_k) <- c("stimuli","category","condition","sound")
+###
+clothing_k <- c("capucha","corbata","camosón","collar")
+clothing_k <- as.data.frame(clothing_k)
+clothing_k["category"] <- c("clothing")
+clothing_k["condition"] <- c("plosive")
+clothing_k["sound"] <- c("k")
+names(clothing_k) <- c("stimuli","category","condition","sound")
+###
+toys_k <- c("cuchillo","cometa","cascabel","cordón")
+toys_k <- as.data.frame(toys_k)
+toys_k["category"] <- c("toys")
+toys_k["condition"] <- c("plosive")
+toys_k["sound"] <- c("k")
+names(toys_k) <- c("stimuli","category","condition","sound")
+# m
+food_m <- c("manzana","molusco","melón","mango")
+food_m <- as.data.frame(food_m)
+food_m["category"] <- c("food")
+food_m["condition"] <- c("nasal")
+food_m["sound"] <- c("m")
+names(food_m) <- c("stimuli","category","condition","sound")
+###
+clothing_m <- c("medias","minifalda","moño","manta")
+clothing_m <- as.data.frame(clothing_m)
+clothing_m["category"] <- c("clothing")
+clothing_m["condition"] <- c("nasal")
+clothing_m["sound"] <- c("m")
+names(clothing_m) <- c("stimuli","category","condition","sound")
+###
+toys_m <- c("martillo","móvil","muñeco","máscara")
+toys_m <- as.data.frame(toys_m)
+toys_m["category"] <- c("toys")
+toys_m["condition"] <- c("nasal")
+toys_m["sound"] <- c("m")
+names(toys_m) <- c("stimuli","category","condition","sound")
+# n
+food_n <- c("naranja","nata","nuez","nesquik")
+food_n <- as.data.frame(food_n)
+food_n["category"] <- c("food")
+food_n["condition"] <- c("nasal")
+food_n["sound"] <- c("n")
+names(food_n) <- c("stimuli","category","condition","sound")
+###
+clothing_n <- c("naguas","neglillé","neopreno","nariguera")
+clothing_n <- as.data.frame(clothing_n)
+clothing_n["category"] <- c("clothing")
+clothing_n["condition"] <- c("nasal")
+clothing_n["sound"] <- c("n")
+names(clothing_n) <- c("stimuli","category","condition","sound")
+###
+toys_n <- c("navaja","naipes","nudo","nenuco")
+toys_n <- as.data.frame(toys_n)
+toys_n["category"] <- c("toys")
+toys_n["condition"] <- c("nasal")
+toys_n["sound"] <- c("n")
+names(toys_n) <- c("stimuli","category","condition","sound")
+# s
+food_s <- c("soda","semillas","salchicha","sandía")
+food_s <- as.data.frame(food_s)
+food_s["category"] <- c("food")
+food_s["condition"] <- c("fricative")
+food_s["sound"] <- c("s")
+names(food_s) <- c("stimuli","category","condition","sound")
+###
+clothing_s <- c("sombrero","sotana","sujetador","saco")
+clothing_s <- as.data.frame(clothing_s)
+clothing_s["category"] <- c("clothing")
+clothing_s["condition"] <- c("fricative")
+clothing_s["sound"] <- c("s")
+names(clothing_s) <- c("stimuli","category","condition","sound")
+###
+toys_s <- c("soga", "sarten","sierra","sombrilla")
+toys_s <- as.data.frame(toys_s)
+toys_s["category"] <- c("toys")
+toys_s["condition"] <- c("fricative")
+toys_s["sound"] <- c("s")
+names(toys_s) <- c("stimuli","category","condition","sound")
+# f
+food_f <- c("fideos","fajitas","fuagrás","filete")
+food_f <- as.data.frame(food_f)
+food_f["category"] <- c("food")
+food_f["condition"] <- c("fricative")
+food_f["sound"] <- c("f")
+names(food_f) <- c("stimuli","category","condition","sound")
+###
+clothing_f <- c("falda","forro","filipina","faja")
+clothing_f <- as.data.frame(clothing_f)
+clothing_f["category"] <- c("clothing")
+clothing_f["condition"] <- c("fricative")
+clothing_f["sound"] <- c("f")
+names(clothing_f) <- c("stimuli","category","condition","sound")
+###
+toys_f <- c("fotografía", "farol","fusil","ficha")
+toys_f <- as.data.frame(toys_f)
+toys_f["category"] <- c("toys")
+toys_f["condition"] <- c("fricative")
+toys_f["sound"] <- c("f")
+names(toys_f) <- c("stimuli","category","condition","sound")
+```
+
+```{r}
+# toys
+toysList <- mget(ls(pattern="toys_"))
+dataToys = dplyr::bind_rows(toysList)
+# clothing
+clothingList <- mget(ls(pattern="clothing_"))
+dataClothing = dplyr::bind_rows(clothingList)
+# food
+foodList <- mget(ls(pattern="food_"))
+dataFood = dplyr::bind_rows(foodList)
+# all
+# toys
+List <- mget(ls(pattern="data"))
+Stimuli = dplyr::bind_rows(List)
+# writeTable
+write.table(Stimuli, file = "StimuliProposal_SpeechExperiment.csv", sep = ",", row.names = F)
+```
+
+
