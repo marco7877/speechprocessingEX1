@@ -16,7 +16,7 @@ pacman::p_load(dplyr, ggplot2, tidyr, stringr)
 ```
 
 ```{r}
-subdirectory <- "MaxFe_TR1500"
+subdirectory <- "MaxFd_TR1500"
 name <- paste("~/mflores/", subdirectory, sep = "")
 OVFFiles <- list.files(name,pattern='OVF', full.names = T)
 eventsFiles <- list.files(name,pattern='nEvents', full.names = T)
