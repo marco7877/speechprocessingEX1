@@ -16,64 +16,122 @@ pacman::p_load(dplyr, ggplot2, tidyr, stringr)
 ```
 
 ```{r}
-subdirectory1200 <- "MaxFd_TR1200"
-name1200 <- paste("./", subdirectory1200, sep = "")
+### Fe
+subdirectory1200fe <- "MaxFe_TR1200"
+name1200fe <- paste("./", subdirectory1200fe, sep = "")
 #"~/mflores/"
-OVFFiles1200 <- list.files(name1200,pattern='OVF', full.names = T)
-eventsFiles1200 <- list.files(name1200,pattern='nEvents', full.names = T)
+OVFFiles1200fe <- list.files(name1200fe,pattern='OVF', full.names = T)
+eventsFiles1200fe <- list.files(name1200fe,pattern='nEvents', full.names = T)
 #originFiles <- paste(originFiles, subdirectory, sep = "")
 #xfiles <- str_remove_all(originFiles,"nEvents.csv")
 #xfiles <- unique(xfiles)
-subdirectory1500 <- "MaxFd_TR1500"
-name1500 <- paste("./", subdirectory1500, sep = "")
+subdirectory1500fe <- "MaxFe_TR1500"
+name1500fe <- paste("./", subdirectory1500fe, sep = "")
 #"~/mflores/"
-OVFFiles1500 <- list.files(name1500,pattern='OVF', full.names = T)
-eventsFiles1500 <- list.files(name1500,pattern='nEvents', full.names = T)
-
+OVFFiles1500fe <- list.files(name1500fe,pattern='OVF', full.names = T)
+eventsFiles1500fe <- list.files(name1500fe,pattern='nEvents', full.names = T)
+### Fd
+subdirectory1200fd <- "MaxFd_TR1200"
+name1200fd <- paste("./", subdirectory1200fd, sep = "")
+#"~/mflores/"
+OVFFiles1200fd <- list.files(name1200fd,pattern='OVF', full.names = T)
+eventsFiles1200fd <- list.files(name1200fd,pattern='nEvents', full.names = T)
+#originFiles <- paste(originFiles, subdirectory, sep = "")
+#xfiles <- str_remove_all(originFiles,"nEvents.csv")
+#xfiles <- unique(xfiles)
+subdirectory1500fd <- "MaxFd_TR1500"
+name1500fd <- paste("./", subdirectory1500fd, sep = "")
+#"~/mflores/"
+OVFFiles1500fd <- list.files(name1500fd,pattern='OVF', full.names = T)
+eventsFiles1500fd <- list.files(name1500fd,pattern='nEvents', full.names = T)
 ```
+
 ```{r}
 #opening OVF files and binding them together
-for (i in 1:length(OVFFiles1200)){
-OVF_lists <- read.csv2(OVFFiles1200[i] , header = F, sep = ",")
+### Fe
+for (i in 1:length(OVFFiles1200fe)){
+OVF_lists <- read.csv2(OVFFiles1200fe[i] , header = F, sep = ",")
   if (i==1){
-   OVF_df1200 <- OVF_lists
+   OVF_df1200fe <- OVF_lists
   }
   else
-  {OVF_df1200 <- rbind(OVF_df1200, OVF_lists) }
+  {OVF_df1200fe <- rbind(OVF_df1200fe, OVF_lists) }
 }
-for (i in 1:length(OVFFiles1500)){
-OVF_lists <- read.csv2(OVFFiles1500[i] , header = F, sep = ",")
+for (i in 1:length(OVFFiles1500fe)){
+OVF_lists <- read.csv2(OVFFiles1500fe[i] , header = F, sep = ",")
   if (i==1){
-   OVF_df1500 <- OVF_lists
+   OVF_df1500fe <- OVF_lists
   }
   else
-  {OVF_df1500 <- rbind(OVF_df1500, OVF_lists) }
+  {OVF_df1500fe <- rbind(OVF_df1500fe, OVF_lists) }
+}
+### Fd
+for (i in 1:length(OVFFiles1200fd)){
+OVF_lists <- read.csv2(OVFFiles1200fd[i] , header = F, sep = ",")
+  if (i==1){
+   OVF_df1200fd <- OVF_lists
+  }
+  else
+  {OVF_df1200fd <- rbind(OVF_df1200fd, OVF_lists) }
+}
+for (i in 1:length(OVFFiles1500fd)){
+OVF_lists <- read.csv2(OVFFiles1500fd[i] , header = F, sep = ",")
+  if (i==1){
+   OVF_df1500fd <- OVF_lists
+  }
+  else
+  {OVF_df1500fd <- rbind(OVF_df1500fd, OVF_lists) }
 }
 ```
 
 ```{r}
-for (i in 1:length(eventsFiles1200)){
-events_lists <- read.csv2(eventsFiles1200[i] , header = F, sep = ",")
+#opening event files and binding them together
+### Fe
+for (i in 1:length(eventsFiles1200fe)){
+events_lists <- read.csv2(eventsFiles1200fe[i] , header = F, sep = ",")
   if (i==1){
-   events_df1200 <- events_lists
+   events_df1200fe <- events_lists
   }
   else
-  {events_df1200 <- rbind(events_df1200, events_lists) }
+  {events_df1200fe <- rbind(events_df1200fe, events_lists) }
 }
-for (i in 1:length(eventsFiles1500)){
-events_lists <- read.csv2(eventsFiles1500[i] , header = F, sep = ",")
+for (i in 1:length(eventsFiles1500fe)){
+events_lists <- read.csv2(eventsFiles1500fe[i] , header = F, sep = ",")
   if (i==1){
-   events_df1500 <- events_lists
+   events_df1500fe <- events_lists
   }
   else
-  {events_df1500 <- rbind(events_df1500, events_lists) }
+  {events_df1500fe <- rbind(events_df1500fe, events_lists) }
+}
+### Fd
+for (i in 1:length(eventsFiles1200fd)){
+events_lists <- read.csv2(eventsFiles1200fd[i] , header = F, sep = ",")
+  if (i==1){
+   events_df1200fd <- events_lists
+  }
+  else
+  {events_df1200fd <- rbind(events_df1200fd, events_lists) }
+}
+for (i in 1:length(eventsFiles1500fd)){
+events_lists <- read.csv2(eventsFiles1500fd[i] , header = F, sep = ",")
+  if (i==1){
+   events_df1500fd <- events_lists
+  }
+  else
+  {events_df1500fd <- rbind(events_df1500fd, events_lists) }
 }
 ```
 
 ```{r}
-events_df <- data.frame(events_df1200$V1,"1200")
+events_df <- data.frame(events_df1200fe$V1,"1200fe")
 names(events_df) <- c("events","TR")
-tmp.df <- data.frame(events_df1500$V1,"1500")
+tmp.df <- data.frame(events_df1500fe$V1,"1500fe")
+names(tmp.df) <- c("events","TR")
+events_df <- rbind(events_df,tmp.df)
+tmp.df <- data.frame(events_df1200fd$V1,"1200fd")
+names(tmp.df) <- c("events","TR")
+events_df <- rbind(events_df,tmp.df)
+tmp.df <- data.frame(events_df1500fd$V1,"1500fd")
 names(tmp.df) <- c("events","TR")
 events_df <- rbind(events_df,tmp.df)
 ```
