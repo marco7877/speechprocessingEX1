@@ -44,12 +44,24 @@ name1500fd <- paste("./", subdirectory1500fd, sep = "")
 #"~/mflores/"
 OVFFiles1500fd <- list.files(name1500fd,pattern='OVF', full.names = T)
 eventsFiles1500fd <- list.files(name1500fd,pattern='nEvents', full.names = T)
+## balanced 1200
+subdirectory1200balanced <- "BalancedFdFe_TR1200"
+name1200balanced <- paste("./", subdirectory1200balanced, sep = "")
+#"~/mflores/"
+OVFFiles1200balanced <- list.files(name1200balanced,pattern='OVF', full.names = T)
+eventsFiles1200balanced <- list.files(name1200balanced,pattern='nEvents', full.names = T)
+## balanced 1500
+subdirectory1500balanced <- "BalancedFdFe_TR1500"
+name1500balanced <- paste("./", subdirectory1500balanced, sep = "")
+#"~/mflores/"
+OVFFiles1500balanced <- list.files(name1500balanced,pattern='OVF', full.names = T)
+eventsFiles1500balanced <- list.files(name1500balanced,pattern='nEvents', full.names = T)
 ```
 
 ```{r}
 #opening OVF files and binding them together
 ### Fe
-for (i in 1:length(OVFFiles1200fe)){
+for (i in 1:10){
 OVF_lists <- read.csv2(OVFFiles1200fe[i] , header = F, sep = ",")
   if (i==1){
    OVF_df1200fe <- OVF_lists
@@ -57,7 +69,7 @@ OVF_lists <- read.csv2(OVFFiles1200fe[i] , header = F, sep = ",")
   else
   {OVF_df1200fe <- rbind(OVF_df1200fe, OVF_lists) }
 }
-for (i in 1:length(OVFFiles1500fe)){
+for (i in 1:10){
 OVF_lists <- read.csv2(OVFFiles1500fe[i] , header = F, sep = ",")
   if (i==1){
    OVF_df1500fe <- OVF_lists
@@ -66,7 +78,7 @@ OVF_lists <- read.csv2(OVFFiles1500fe[i] , header = F, sep = ",")
   {OVF_df1500fe <- rbind(OVF_df1500fe, OVF_lists) }
 }
 ### Fd
-for (i in 1:length(OVFFiles1200fd)){
+for (i in 1:10){
 OVF_lists <- read.csv2(OVFFiles1200fd[i] , header = F, sep = ",")
   if (i==1){
    OVF_df1200fd <- OVF_lists
@@ -74,13 +86,31 @@ OVF_lists <- read.csv2(OVFFiles1200fd[i] , header = F, sep = ",")
   else
   {OVF_df1200fd <- rbind(OVF_df1200fd, OVF_lists) }
 }
-for (i in 1:length(OVFFiles1500fd)){
+for (i in 1:10){
 OVF_lists <- read.csv2(OVFFiles1500fd[i] , header = F, sep = ",")
   if (i==1){
    OVF_df1500fd <- OVF_lists
   }
   else
   {OVF_df1500fd <- rbind(OVF_df1500fd, OVF_lists) }
+}
+## balanced 1200
+for (i in 1:10){
+OVF_lists <- read.csv2(OVFFiles1200balanced[i] , header = F, sep = ",")
+  if (i==1){
+   OVF_df1200balanced <- OVF_lists
+  }
+  else
+  {OVF_df1200balanced <- rbind(OVF_df1200balanced, OVF_lists) }
+}
+## balanced 1500
+for (i in 1:length(OVFFiles1500balanced)){
+OVF_lists <- read.csv2(OVFFiles1500balanced[i] , header = F, sep = ",")
+  if (i==1){
+   OVF_df1500balanced <- OVF_lists
+  }
+  else
+  {OVF_df1500balanced <- rbind(OVF_df1500balanced, OVF_lists) }
 }
 ```
 
@@ -120,6 +150,24 @@ events_lists <- read.csv2(eventsFiles1500fd[i] , header = F, sep = ",")
   else
   {events_df1500fd <- rbind(events_df1500fd, events_lists) }
 }
+### balanced 1200
+for (i in 1:length(eventsFiles1200balanced)){
+events_lists <- read.csv2(eventsFiles1200balanced[i] , header = F, sep = ",")
+  if (i==1){
+   events_df1200balanced <- events_lists
+  }
+  else
+  {events_df1200balanced <- rbind(events_df1200balanced, events_lists) }
+}
+### balanced 1500
+for (i in 1:length(eventsFiles1500balanced)){
+events_lists <- read.csv2(eventsFiles1500balanced[i] , header = F, sep = ",")
+  if (i==1){
+   events_df1500balanced <- events_lists
+  }
+  else
+  {events_df1500balanced <- rbind(events_df1500balanced, events_lists) }
+}
 ```
 
 ```{r}
@@ -134,30 +182,80 @@ events_df <- rbind(events_df,tmp.df)
 tmp.df <- data.frame(events_df1500fd$V1,"1500fd")
 names(tmp.df) <- c("events","TR")
 events_df <- rbind(events_df,tmp.df)
+
+tmp.df <- data.frame(events_df1500balanced$V1,"1500balanced")
+names(tmp.df) <- c("events","TR")
+events_df <- rbind(events_df,tmp.df)
+tmp.df <- data.frame(events_df1200balanced$V1,"1200balanced")
+names(tmp.df) <- c("events","TR")
+events_df <- rbind(events_df,tmp.df)
 ```
 
 ```{r}
 #build violin plots 
 dp <- ggplot(events_df, aes(x=TR, y=events )) + 
   geom_violin(trim=FALSE)+
+  geom_jitter(height = 0, width = 0.1)+
   geom_boxplot(width=0.1, fill="white")+
-  labs(title="Efficiency achieved in Genetic algorithm", y = "Control trials excess")
+  labs(title="Unmatching trials frecuency in Genetic algorithm", y = "Control trials excess")
 dp + theme_classic()
 ```
 ```{r}
-OVF_df <- data.frame(OVF_df1200$V1,"1200")
-names(OVF_df) <- c("OVF","TR")
-tmp.df <- data.frame(OVF_df1500$V1,"1500")
+OVF_dffe <- data.frame(OVF_df1200fe$V1,"1200fe")
+names(OVF_dffe) <- c("OVF","TR")
+tmp.df <- data.frame(OVF_df1500fe$V1,"1500fe")
 names(tmp.df) <- c("OVF","TR")
-OVF_df <- rbind(OVF_df,tmp.df)
-OVF_df$OVF <- as.numeric(OVF_df$OVF)
+OVF_dffe <- rbind(OVF_dffe,tmp.df)
+OVF_dffe$OVF <- as.numeric(OVF_dffe$OVF)
+###
+tmp.df2 <- data.frame(OVF_df1200balanced$V1,"1200balanced")
+names(tmp.df2) <- c("OVF","TR")
+
+tmp.df <- data.frame(OVF_df1500balanced$V1,"1500balanced")
+names(tmp.df) <- c("OVF","TR")
+tmp.df2 <- rbind(tmp.df2,tmp.df)
+tmp.df2$OVF <- as.numeric(tmp.df2$OVF)
 ```
 
 ```{r}
 #build violin plots 
-dp <- ggplot(OVF_df, aes(x=TR, y=OVF)) + 
+dp <- ggplot(OVF_dffe, aes(x=TR, y=OVF)) + 
   geom_violin(trim=FALSE)+
+  geom_jitter(height = 0, width = 0.1)+
   geom_boxplot(width=0.1, fill="white")+
   labs(title="Efficiency achieved in Genetic algorithm", y = "OVF")
 dp + theme_classic()
+#individual dots
 ```
+
+```{r}
+#build violin plots 
+dp <- ggplot(tmp.df2, aes(x=TR, y=OVF)) + 
+  geom_violin(trim=FALSE)+
+  geom_jitter(height = 0, width = 0.1)+
+  geom_boxplot(width=0.1, fill="white")+
+  labs(title="Efficiency achieved in Genetic algorithm (balanced)", y = "OVF")
+dp + theme_classic()
+#individual dots *multiplicar poe l valor 
+```
+
+```{r}
+#DETECCIÓN
+OVF_dffd <- data.frame(OVF_df1200fd$V1,"1200fd")
+names(OVF_dffd) <- c("OVF","TR")
+tmp.df <- data.frame(OVF_df1500fd$V1,"1500fd")
+names(tmp.df) <- c("OVF","TR")
+OVF_dffd <- rbind(OVF_dffd,tmp.df)
+OVF_dffd$OVF <- as.numeric(OVF_dffd$OVF)
+```
+```{r}
+#build violin plots 
+dp <- ggplot(OVF_dffd, aes(x=TR, y=OVF)) + 
+  geom_violin(trim=FALSE)+
+  geom_jitter(height = 0, width = 0.1)+
+  geom_boxplot(width=0.1, fill="white")+
+  labs(title="Detection achieved in Genetic algorithm", y = "OVF")
+dp + theme_classic()
+#individual dots
+```
+
