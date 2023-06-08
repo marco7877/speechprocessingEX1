@@ -9,8 +9,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library("pacman")
-pacman::p_load("dplyr","tidyr","readxl")
+pacman::p_load("dplyr","tidyr","readxl", "ggpubr")
 ## we are going to do bootstrap tp the amount of letters of the word. for this I am going to use the boot library
+#pacman::p_load(tidyverse, dplyr, raster, ggplot2, rstatix, ggpubr, ggsignif,
+               # MASS, RColorBrewer, psych,  emmeans,
+              # corrplot, broom,rgl,  readxl,summarytools, caret)
 ```
 
 ```{r}
@@ -128,6 +131,54 @@ stimuli.experiment.filtered$sem.cat <- as.factor(stimuli.experiment.filtered$cat
 ```{r}
 boxplot(stimuli.food.filtered$corpes_norm_spain,stimuli.objects.filtered$corpes_norm_spain, xlab="semantic category", ylab="word frecuency (corpes)", names=c("food","objects"))
 ```
+
+```{r}
+#### ---- making plots with statistics 
+## Food vs objects 
+#- frecuency
+stat.freq.foodObjects <-  stimuli.experiment.filtered %>% 
+  wilcox_test(corpes_norm_spain ~ category, paired = F, exact = T) %>%
+  add_significance()
+boxplot1 <- ggboxplot(stimuli.experiment.filtered,x="category",y="corpes_norm_spain", palette = get_palette(c("#ffffff", "#ffffff"), 2),
+         ylab= "Frequency (corpes)",xlab="Semantic Category")
+stat.freq.foodObjects <-  stat.freq.foodObjects %>% add_xy_position(x = "group")
+boxplot1 <- boxplot1+stat_pvalue_manual(stat.freq.foodObjects, tip.length = 0) +
+labs(subtitle = get_test_label(stat.freq.foodObjects, detailed= T))
+#-letters
+stat.lett.foodObjects <-  stimuli.experiment.filtered %>% 
+  wilcox_test(n.char ~ category, paired = F, exact = T) %>%
+  add_significance()
+boxplot2 <- ggboxplot(stimuli.experiment.filtered,x="category",y="n.char", palette = get_palette(c("#ffffff", "#ffffff"), 2),
+         ylab= "lenght (letters)",xlab="Semantic Category")
+stat.lett.foodObjects <-  stat.lett.foodObjects %>% add_xy_position(x = "group")
+boxplot2 <- boxplot2+stat_pvalue_manual(stat.lett.foodObjects, tip.length = 0) +
+labs(subtitle = get_test_label(stat.lett.foodObjects, detailed= T))
+
+```
+
+```{r}
+#### ---- making plots with statistics 
+## Mode of articulation
+#- frecuency
+boxplot3 <- ggboxplot(stimuli.experiment.filtered,x="condition",y="corpes_norm_spain",
+         ylab= "Frequency (corpes)",xlab="Mode of articulation")+
+  stat_compare_means()
+#- letters
+boxplot4 <- ggboxplot(stimuli.experiment.filtered,x="condition",y="n.char",
+         ylab= "length (letters)",xlab="Mode of articulation")+
+  stat_compare_means()
+## letter
+#- frecuency
+boxplot5 <- ggboxplot(stimuli.experiment.filtered,x="sound",y="corpes_norm_spain",
+         ylab= "Frequency (corpes)",xlab="First sound")+
+  stat_compare_means()
+#- letters
+boxplot6 <- ggboxplot(stimuli.experiment.filtered,x="sound",y="n.char",
+         ylab= "length (letters)",xlab="First sound")+
+  stat_compare_means()
+```
+
+
 
 ```{r}
 #deciding how to make non word stimuli. We will do:
@@ -260,6 +311,12 @@ SentencesSubject <- rbind(SentencesSubject,sentences)
 #### merging sentences with word stimuli by stimuli
 #test <- merge(stimuli.experiment.filtered,SentencesSubject,by="stimuli")
 #write.csv(test,"completeStimuli_Exp1.csv",fileEncoding = "UTF-8")
+```
+
+```{r}
+boxplot7 <- ggboxplot(stimuli.experiment.filtered,x="sound",y="n.char",
+         ylab= "length (letters)",xlab="First sound")+
+  stat_compare_means()
 ```
 
 
