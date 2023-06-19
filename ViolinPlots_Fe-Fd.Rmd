@@ -210,20 +210,24 @@ OVF_dffe$OVF <- as.numeric(OVF_dffe$OVF)
 ###
 tmp.df2 <- data.frame(OVF_df1200balanced$V1,"1200balanced")
 names(tmp.df2) <- c("OVF","TR")
-
+tmp.df2$OVF <- as.numeric(as.character(tmp.df2$OVF))*2.9889
+#convert to the maximum value in algorith
 tmp.df <- data.frame(OVF_df1500balanced$V1,"1500balanced")
 names(tmp.df) <- c("OVF","TR")
+tmp.df$OVF <- as.numeric(as.character(tmp.df$OVF))*2.9849
+#convert to the maximum value in algorith
 tmp.df2 <- rbind(tmp.df2,tmp.df)
-tmp.df2$OVF <- as.numeric(tmp.df2$OVF)
+#tmp.df2$OVF <- as.numeric(tmp.df2$OVF)
 ```
 
 ```{r}
 #build violin plots 
 dp <- ggplot(OVF_dffe, aes(x=TR, y=OVF)) + 
+  scale_y_continuous(breaks = c(0,2,4,6,8,10,12,14,16,18,20))+
   geom_violin(trim=FALSE)+
   geom_jitter(height = 0, width = 0.1)+
   geom_boxplot(width=0.1, fill="white")+
-  labs(title="Efficiency achieved in Genetic algorithm", y = "OVF")
+  labs(title="Efficiency achieved in Genetic algorithm", y = "OVF")+ylab("Efficciency to measure cannonical HRF")
 dp + theme_classic()
 #individual dots
 ```
@@ -231,10 +235,11 @@ dp + theme_classic()
 ```{r}
 #build violin plots 
 dp <- ggplot(tmp.df2, aes(x=TR, y=OVF)) + 
+  #scale_y_continuous(breaks = c(0,2,4))+
   geom_violin(trim=FALSE)+
-  geom_jitter(height = 0, width = 0.1)+
   geom_boxplot(width=0.1, fill="white")+
-  labs(title="Efficiency achieved in Genetic algorithm (balanced)", y = "OVF")
+  geom_jitter(height = 0, width = 0.1)+
+  labs(title="Efficiency achieved in Genetic algorithm (balanced)")+ylab("Efficciency to measure cannonical HRF")
 dp + theme_classic()
 #individual dots *multiplicar poe l valor 
 ```
