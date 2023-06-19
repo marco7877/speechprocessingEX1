@@ -3,18 +3,19 @@ title: "stimuli_presentation"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, warning=FALSE}
 library(knitr, pacman)
 knitr::opts_chunk$set(echo = TRUE)
 pacman::p_load(stringr)
 ```
 
 ```{r}
+set.seed(1)
 stimuliOcurrence <- 10
 #originFiles <- list.files("~/Documents/experiment1/secuences/",full.names = F)
-originFiles <- list.files("~/Documents/speechprocessingEX1/secuences/",full.names = F)
+originFiles <- list.files("~/Documents/experiment1/BalancedFdFe_TR1200/",pattern ="Speech_wordLevel11_*",full.names = F)
 extention="balancedSequence.csv"
-steps <- length(originFiles)/2
+steps <- length(originFiles)%/%2
 xfiles <- str_remove_all(originFiles,"nEvents.csv")
 xfiles <- str_remove_all(xfiles,"BestList.csv")
 xfiles <- unique(xfiles)
@@ -22,8 +23,8 @@ xfiles <- unique(xfiles)
 #############--- Loop
 for (i in 1:steps)
   {
-file_lists <- read.csv2(paste(xfiles[i],"BestList.csv",sep="") , header = F, sep = ",")+1
-file_n <- read.csv2(paste(xfiles[i],"nEvents.csv",sep=""), header = F, sep = ",")
+file_lists <- read.csv2(paste("./BalancedFdFe_TR1200/",xfiles[i],"BestList.csv",sep="") , header = F, sep = ",")+1
+file_n <- read.csv2(paste("./BalancedFdFe_TR1200/",xfiles[i],"nEvents.csv",sep=""), header = F, sep = ",")
 names(file_n) <- as.factor(c(1:length(file_n)))
 over <- file_n>10
 under <- file_n<10
@@ -40,30 +41,54 @@ x[,2] <- (file_n-10)[under]*-1
 replace_elements <- as.numeric(rep(x[,1],times=x[,2]))#making list of elements to change
 file_lists[over_indexes,] <- replace_elements#replacing elements that lack n representations in file_list
 ######################
-if (!dir.exists("output")){
-  dir.create("output")
+if (!dir.exists("./output")){
+  dir.create("./output")
 }
 names(file_lists) <- "elementType"
-write.csv2(file_lists, paste("output/",xfiles[i],extention,sep = ""),row.names = F)
+write.csv2(file_lists, paste("./output/",xfiles[i],extention,sep = ""),row.names = F)
 }
+
 ```
 
 ```{r, eval=FALSE}
+set.seed(2)
 word <- read.csv2("wordStimuli.csv", sep = ",")
 word <- word%>%arrange(desc(stimuli)) 
 word$soundf <- as.factor(word$sound )
 levels(word$soundf) <- c("7","2","3","4","5","6","1")
 word$soundindex <- as.integer(as.character(word$soundf))
-orders <- read.csv2("output/Speech_wordLevel 7 4242023-1637 _balancedSequence.csv")
+orders <- read.csv2("./output/Speech_wordLevel11_6192023-1146_balancedSequence.csv")
 orders$token <- c("")
 
 for (i in 1:7){
   listindex <- orders$elementType==i
   stimulitarget <- word%>%filter( soundindex==i) %>% select(stimuli)
-  stimulitarget$stimuli <- sample(stimulitarget$stimuli)
+  stimulitarget$stimuli <- sample(as.character(stimulitarget$stimuli))
   orders$token[listindex] <- stimulitarget$stimuli
 }
-write.csv2(orders,"firstSequence.csv",row.names = F)
+write.csv2(orders,"./output/firstWordSequence.csv",row.names = F)
 ```
+
+```{r}
+set.seed(3)
+sequences <- 4
+syllable <- read.csv2("syllableStimuli.csv", sep = ",")
+syllable <- syllable%>%arrange(desc(stimuli)) 
+syllable$soundf <- as.factor(syllable$sound )
+levels(syllable$soundf) <- c("7","2","3","4","5","6","1")
+syllable$soundindex <- as.integer(as.character(syllable$soundf))
+orders <- read.csv2("./output/Speech_wordLevel11_6192023-1146_balancedSequence.csv")
+orders$token <- c("")
+for (j in 1:sequences){
+for (i in 1:7){
+  listindex <- orders$elementType==i
+  stimulitarget <- syllable%>%filter( soundindex==i) %>% select(stimuli)
+  stimulitarget$stimuli <- sample(as.character(stimulitarget$stimuli))
+  orders$token[listindex] <- stimulitarget$stimuli
+}
+write.csv2(orders,paste("./output/",as.character(j),"BalancedSyllableSequence.csv",sep = ""),row.names = F)
+}
+```
+
 
 
