@@ -7,7 +7,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, warning=FALSE}
 library("pacman")
 pacman::p_load("dplyr","tidyr","readxl", "ggpubr")
 ## we are going to do bootstrap tp the amount of letters of the word. for this I am going to use the boot library
@@ -318,6 +318,25 @@ boxplot7 <- ggboxplot(stimuli.experiment.filtered,x="sound",y="n.char",
          ylab= "length (letters)",xlab="First sound")+
   stat_compare_means()
 ```
+
+```{r}
+## getting unique elements in sentences
+sentences <- read_excel("./Stimuli_Exp1_subselection.xlsx")%>%
+  dplyr::select("S1","S2","S3","S4","S5","S6","status")
+acceptedSentence_mask <- sentences$status==1
+sentences <-sentences[acceptedSentence_mask,]
+one <- unique(sentences$S1)
+two<- unique(sentences$S2)
+three<- unique(sentences$S3)
+four<- unique(sentences$S4)
+five<- unique(sentences$S5)
+six<- unique(sentences$S6)
+wordsSentence <- c(one,two,three,four,five,six)
+wordsSentence <- as.data.frame(wordsSentence)
+wordsSentence <- unique(wordsSentence)
+write.csv(wordsSentence,"tokens4SentencesStimuli.csv",sep=",")
+```
+
 
 
 
