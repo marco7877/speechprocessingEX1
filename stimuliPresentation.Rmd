@@ -6,7 +6,7 @@ output: pdf_document
 ```{r setup, include=FALSE, warning=FALSE}
 library(knitr, pacman)
 knitr::opts_chunk$set(echo = TRUE)
-pacman::p_load(stringr)
+pacman::p_load(stringr, dplyr)
 ```
 
 ```{r}
@@ -55,18 +55,36 @@ set.seed(2)
 word <- read.csv2("wordStimuli.csv", sep = ",")
 word <- word%>%arrange(desc(stimuli)) 
 word$soundf <- as.factor(word$sound )
-levels(word$soundf) <- c("7","2","3","4","5","6","1")
+levels(word$soundf) <- c("6","5","2","3","1","4","7")
 word$soundindex <- as.integer(as.character(word$soundf))
 orders <- read.csv2("./output/Speech_wordLevel11_6192023-1146_balancedSequence.csv")
 orders$token <- c("")
-
+orders$sem <- c("")
 for (i in 1:7){
   listindex <- orders$elementType==i
-  stimulitarget <- word%>%filter( soundindex==i) %>% select(stimuli)
-  stimulitarget$stimuli <- sample(as.character(stimulitarget$stimuli))
+  stimulitarget <- word%>%filter( soundindex==i) %>% select(stimuli,sem)
+  #stimulitarget <- word%>%filter( soundindex==i) 
+  #stimulitarget$stimuli <- sample(as.character(stimulitarget$stimuli))
+  stimulitarget <- sample(stimulitarget)
+  stimulitarget$stimuli <- as.character(stimulitarget$stimuli)
+  stimulitarget$sem <- as.character(stimulitarget$sem)
   orders$token[listindex] <- stimulitarget$stimuli
+  orders$sem[listindex] <- stimulitarget$sem
 }
-write.csv2(orders,"./output/firstWordSequence.csv",row.names = F)
+#write.csv2(orders,"./output/4BalancedWordSequence.csv",row.names = F, sep = ",")
+### now we are making n amount of different word sequences 
+nVariants <- 3#amount of different sequences beside the base one
+uniqueSem <- unique(orders$sem)
+for (i in 1:nVariants){
+  tmpOrders <- orders
+  for (j in uniqueSem)
+  { print(j)
+    semindex <- orders$sem==j
+    tmp <- sample(orders$token[semindex])
+    tmpOrders$token[semindex] <- tmp
+  }
+  write.csv2(tmpOrders,paste("./output/",as.character(i), "BalancedWordSequence.csv",sep = ""),row.names = F, sep = ",")
+}
 ```
 
 ```{r}
@@ -86,7 +104,7 @@ for (i in 1:7){
   stimulitarget$stimuli <- sample(as.character(stimulitarget$stimuli))
   orders$token[listindex] <- stimulitarget$stimuli
 }
-write.csv2(orders,paste("./output/",as.character(j),"BalancedSyllableSequence.csv",sep = ""),row.names = F)
+write.csv2(orders,paste("./output/",as.character(j),"BalancedSyllableSequence.csv",sep = ","),row.names = F)
 }
 ```
 
