@@ -156,8 +156,8 @@ for (i in 1:nVariants)
   for (j in uniqueSem)
   { 
     semindex <- orders$sem==j
-    tmp <- sample(Sentencetmp[Sentencetmp$sem==j,])
-    tmpOrders$token[semindex] <- tmp$stimuli
+    tmp <- Sentencetmp[Sentencetmp$sem==j,]
+    tmpOrders$token[semindex] <- sample(tmp$stimuli)
   }
   
   write.csv2(tmpOrders,paste("./output/",as.character(i),"BalancedSentenceSequence.csv",sep = ""),row.names = F)
